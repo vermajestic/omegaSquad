@@ -55,15 +55,15 @@ export const VesselIntelligencePage: React.FC = () => {
   return (
     <div className="space-y-6 pb-12">
       {/* Top Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-5">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse" />
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+            <span className="w-2.5 h-2.5 rounded-full bg-cyan-500 animate-pulse" />
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
               AIS Vessel Intelligence & Traffic Correlation
             </h1>
           </div>
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-slate-600 dark:text-slate-400">
             Autonomous spatio-temporal correlation of maritime transponder telemetry against spill coordinates
           </p>
         </div>
@@ -74,7 +74,7 @@ export const VesselIntelligencePage: React.FC = () => {
           <select
             value={selectedIncidentId}
             onChange={(e) => setSelectedIncidentId(e.target.value)}
-            className="bg-[#111827] border border-slate-700/80 rounded-lg px-3 py-2 text-xs font-medium text-slate-200 focus:outline-none focus:border-cyan-500 cursor-pointer"
+            className="bg-white dark:bg-[#111827] border border-slate-300 dark:border-slate-700/80 rounded-lg px-3 py-2 text-xs font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:border-cyan-500 cursor-pointer shadow-2xs"
           >
             {mockIncidents.map(inc => (
               <option key={inc.id} value={inc.id}>
@@ -87,7 +87,7 @@ export const VesselIntelligencePage: React.FC = () => {
           <select
             value={searchRadius}
             onChange={(e) => setSearchRadius(e.target.value)}
-            className="bg-[#111827] border border-slate-700/80 rounded-lg px-3 py-2 text-xs font-medium text-slate-200 focus:outline-none focus:border-cyan-500 cursor-pointer"
+            className="bg-white dark:bg-[#111827] border border-slate-300 dark:border-slate-700/80 rounded-lg px-3 py-2 text-xs font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:border-cyan-500 cursor-pointer shadow-2xs"
           >
             <option value="25 km">Corridor: 25 km</option>
             <option value="50 km">Corridor: 50 km</option>
@@ -99,7 +99,7 @@ export const VesselIntelligencePage: React.FC = () => {
           <select
             value={timeWindow}
             onChange={(e) => setTimeWindow(e.target.value)}
-            className="bg-[#111827] border border-slate-700/80 rounded-lg px-3 py-2 text-xs font-medium text-slate-200 focus:outline-none focus:border-cyan-500 cursor-pointer"
+            className="bg-white dark:bg-[#111827] border border-slate-300 dark:border-slate-700/80 rounded-lg px-3 py-2 text-xs font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:border-cyan-500 cursor-pointer shadow-2xs"
           >
             <option value="24 Hours">Window: 24 Hours</option>
             <option value="48 Hours">Window: 48 Hours</option>
@@ -111,7 +111,7 @@ export const VesselIntelligencePage: React.FC = () => {
             size="md"
             onClick={handleQueryAIS}
             disabled={isQueryingAIS}
-            className="shadow-[0_0_15px_rgba(6,182,212,0.3)] text-xs"
+            className="shadow-xs text-xs"
           >
             {isQueryingAIS ? (
               <>
@@ -130,15 +130,15 @@ export const VesselIntelligencePage: React.FC = () => {
 
       {/* Query Banner */}
       {isQueryingAIS && (
-        <div className="rounded-xl bg-[#111827] border border-cyan-500/40 p-4 shadow-xl">
+        <div className="rounded-xl bg-white dark:bg-[#111827] border border-cyan-300 dark:border-cyan-500/40 p-4 shadow-xs dark:shadow-xl">
           <div className="flex items-center justify-between text-xs font-mono mb-2">
-            <span className="text-cyan-400 flex items-center gap-2">
-              <Radio className="w-4 h-4 animate-pulse" />
+            <span className="text-cyan-700 dark:text-cyan-400 flex items-center gap-2 font-medium">
+              <Radio className="w-4 h-4 animate-pulse text-cyan-600 dark:text-cyan-400" />
               Ingesting global terrestrial and satellite AIS transponder packets for {searchRadius} corridor...
             </span>
-            <span className="text-slate-300 font-bold">{queryProgress}%</span>
+            <span className="text-slate-800 dark:text-slate-300 font-bold">{queryProgress}%</span>
           </div>
-          <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+          <div className="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-300 rounded-full"
               style={{ width: `${queryProgress}%` }}
@@ -149,27 +149,27 @@ export const VesselIntelligencePage: React.FC = () => {
 
       {/* Search Corridor Metrics Bar */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-4 rounded-xl bg-[#111827] border border-slate-800">
-          <span className="text-[11px] uppercase font-bold text-slate-400">Vessels in Corridor</span>
-          <div className="mt-1 text-2xl font-bold font-mono text-white">12 Candidates</div>
+        <div className="p-4 rounded-xl bg-white dark:bg-[#0d1320] border border-slate-200 dark:border-[#1e293b] shadow-xs">
+          <span className="text-[11px] uppercase font-bold text-slate-500 dark:text-slate-400">Vessels in Corridor</span>
+          <div className="mt-1 text-2xl font-bold font-mono text-slate-900 dark:text-white">12 Candidates</div>
           <span className="text-[10px] text-slate-500">Within {searchRadius} radius</span>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#111827] border border-red-500/20 bg-red-950/10">
-          <span className="text-[11px] uppercase font-bold text-red-400">Priority Suspects</span>
-          <div className="mt-1 text-2xl font-bold font-mono text-red-400">1 Flagged</div>
-          <span className="text-[10px] text-red-400/80">MV Ocean Star (87% Match)</span>
+        <div className="p-4 rounded-xl bg-rose-50/60 dark:bg-[#0d1320] border border-rose-200 dark:border-red-500/20 shadow-xs">
+          <span className="text-[11px] uppercase font-bold text-rose-700 dark:text-red-400">Priority Suspects</span>
+          <div className="mt-1 text-2xl font-bold font-mono text-rose-600 dark:text-red-400">1 Flagged</div>
+          <span className="text-[10px] text-rose-600/80 dark:text-red-400/80">MV Ocean Star (87% Match)</span>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#111827] border border-slate-800">
-          <span className="text-[11px] uppercase font-bold text-slate-400">Telemetry Volume</span>
-          <div className="mt-1 text-2xl font-bold font-mono text-cyan-400">14,820 AIS Points</div>
+        <div className="p-4 rounded-xl bg-white dark:bg-[#0d1320] border border-slate-200 dark:border-[#1e293b] shadow-xs">
+          <span className="text-[11px] uppercase font-bold text-slate-500 dark:text-slate-400">Telemetry Volume</span>
+          <div className="mt-1 text-2xl font-bold font-mono text-cyan-600 dark:text-cyan-400">14,820 AIS Points</div>
           <span className="text-[10px] text-slate-500">{timeWindow} time-depth</span>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#111827] border border-slate-800">
-          <span className="text-[11px] uppercase font-bold text-slate-400">Incident Target</span>
-          <div className="mt-1 text-2xl font-bold font-mono text-amber-400">{currentIncident.id}</div>
+        <div className="p-4 rounded-xl bg-white dark:bg-[#0d1320] border border-slate-200 dark:border-[#1e293b] shadow-xs">
+          <span className="text-[11px] uppercase font-bold text-slate-500 dark:text-slate-400">Incident Target</span>
+          <div className="mt-1 text-2xl font-bold font-mono text-amber-600 dark:text-amber-400">{currentIncident.id}</div>
           <span className="text-[10px] text-slate-500">{currentIncident.region}</span>
         </div>
       </div>

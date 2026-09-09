@@ -36,17 +36,17 @@ export const HelpPage: React.FC = () => {
   return (
     <div className="space-y-8 pb-16 max-w-4xl mx-auto">
       {/* Header */}
-      <div className="border-b border-slate-800 pb-5">
+      <div className="border-b border-slate-200 dark:border-slate-800 pb-5">
         <div className="flex items-center gap-2 mb-1">
-          <HelpCircle className="w-4 h-4 text-cyan-400" />
-          <span className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest">
+          <HelpCircle className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+          <span className="text-xs font-mono font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-widest">
             Operator Support & Documentation
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
           Platform Knowledge Base & Reference Manual
         </h1>
-        <p className="text-xs sm:text-sm text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
           Standard operating procedures, forensic methodology, and operational quick reference
         </p>
       </div>
@@ -54,8 +54,8 @@ export const HelpPage: React.FC = () => {
       {/* FAQ Accordion */}
       <div className="space-y-3">
         <div className="flex items-center gap-2 pb-2">
-          <BookOpen className="w-4 h-4 text-cyan-400" />
-          <h2 className="text-sm font-bold text-white uppercase tracking-wider">
+          <BookOpen className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+          <h2 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
             Frequently Asked Operational Questions
           </h2>
         </div>
@@ -65,18 +65,18 @@ export const HelpPage: React.FC = () => {
           return (
             <div
               key={idx}
-              className="rounded-xl bg-[#111827] border border-slate-800 overflow-hidden transition"
+              className="rounded-xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 overflow-hidden transition shadow-xs"
             >
               <button
                 onClick={() => setOpenFaq(isOpen ? null : idx)}
-                className="w-full p-4 flex items-center justify-between text-left text-xs sm:text-sm font-semibold text-slate-200 hover:text-cyan-300 transition"
+                className="w-full p-4 flex items-center justify-between text-left text-xs sm:text-sm font-semibold text-slate-900 dark:text-slate-200 hover:text-cyan-600 dark:hover:text-cyan-300 transition"
               >
                 <span>{faq.q}</span>
-                {isOpen ? <ChevronUp className="w-4 h-4 text-cyan-400 flex-shrink-0 ml-2" /> : <ChevronDown className="w-4 h-4 text-slate-500 flex-shrink-0 ml-2" />}
+                {isOpen ? <ChevronUp className="w-4 h-4 text-cyan-600 dark:text-cyan-400 flex-shrink-0 ml-2" /> : <ChevronDown className="w-4 h-4 text-slate-400 dark:text-slate-500 flex-shrink-0 ml-2" />}
               </button>
 
               {isOpen && (
-                <div className="px-4 pb-4 text-xs text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3">
+                <div className="px-4 pb-4 text-xs text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-800/80 pt-3">
                   {faq.a}
                 </div>
               )}
@@ -86,40 +86,40 @@ export const HelpPage: React.FC = () => {
       </div>
 
       {/* Sensor Specifications Table */}
-      <div className="rounded-xl bg-[#111827] border border-slate-800 p-5 shadow-xl space-y-3">
-        <div className="flex items-center gap-2 pb-2 border-b border-slate-800">
-          <Satellite className="w-4 h-4 text-cyan-400" />
-          <h3 className="text-sm font-bold text-white uppercase tracking-wider">
+      <div className="rounded-xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 p-5 shadow-xs dark:shadow-xl space-y-3 transition-colors">
+        <div className="flex items-center gap-2 pb-2 border-b border-slate-200 dark:border-slate-800">
+          <Satellite className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
             Copernicus Constellation Specifications
           </h3>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left font-mono">
-            <thead className="text-[10px] text-slate-500 uppercase border-b border-slate-800">
+            <thead className="text-[10px] text-slate-500 dark:text-slate-400 uppercase border-b border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-transparent">
               <tr>
-                <th className="py-2 px-3">Satellite</th>
-                <th className="py-2 px-3">Payload Sensor</th>
-                <th className="py-2 px-3">Frequency / Band</th>
-                <th className="py-2 px-3">Spatial Resolution</th>
-                <th className="py-2 px-3">Swath Width</th>
-                <th className="py-2 px-3">Revisit Time</th>
+                <th className="py-2.5 px-3 font-semibold">Satellite</th>
+                <th className="py-2.5 px-3 font-semibold">Payload Sensor</th>
+                <th className="py-2.5 px-3 font-semibold">Frequency / Band</th>
+                <th className="py-2.5 px-3 font-semibold">Spatial Resolution</th>
+                <th className="py-2.5 px-3 font-semibold">Swath Width</th>
+                <th className="py-2.5 px-3 font-semibold">Revisit Time</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-300">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60 text-slate-700 dark:text-slate-300">
               <tr>
-                <td className="py-2.5 px-3 font-bold text-cyan-400">Sentinel-1A/B</td>
+                <td className="py-2.5 px-3 font-bold text-cyan-700 dark:text-cyan-400">Sentinel-1A/B</td>
                 <td className="py-2.5 px-3 font-sans">C-band SAR</td>
                 <td className="py-2.5 px-3">5.405 GHz</td>
-                <td className="py-2.5 px-3 font-bold text-emerald-400">10m (IW Mode)</td>
+                <td className="py-2.5 px-3 font-bold text-emerald-600 dark:text-emerald-400">10m (IW Mode)</td>
                 <td className="py-2.5 px-3">250 km</td>
                 <td className="py-2.5 px-3 font-sans">6 days (Constellation)</td>
               </tr>
               <tr>
-                <td className="py-2.5 px-3 font-bold text-blue-400">Sentinel-2A/B</td>
+                <td className="py-2.5 px-3 font-bold text-blue-600 dark:text-blue-400">Sentinel-2A/B</td>
                 <td className="py-2.5 px-3 font-sans">MSI Multi-Spectral</td>
                 <td className="py-2.5 px-3">13 Spectral Bands</td>
-                <td className="py-2.5 px-3 font-bold text-cyan-400">10m / 20m</td>
+                <td className="py-2.5 px-3 font-bold text-cyan-700 dark:text-cyan-400">10m / 20m</td>
                 <td className="py-2.5 px-3">290 km</td>
                 <td className="py-2.5 px-3 font-sans">5 days (Cloud dependent)</td>
               </tr>
@@ -129,16 +129,16 @@ export const HelpPage: React.FC = () => {
       </div>
 
       {/* Hackathon Attribution Card */}
-      <div className="p-6 rounded-xl bg-gradient-to-r from-cyan-950/40 via-slate-900 to-blue-950/40 border border-cyan-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="p-6 rounded-xl bg-gradient-to-r from-cyan-50 via-white to-blue-50 dark:from-cyan-950/40 dark:via-slate-900 dark:to-blue-950/40 border border-cyan-200 dark:border-cyan-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs dark:shadow-md">
         <div>
-          <div className="text-xs font-mono font-bold text-cyan-400 mb-1">SMART INDIA HACKATHON 2026</div>
-          <div className="text-base font-bold text-white">Developed by Team omegaSquad</div>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <div className="text-xs font-mono font-bold text-cyan-600 dark:text-cyan-400 mb-1">SMART INDIA HACKATHON 2026</div>
+          <div className="text-base font-bold text-slate-900 dark:text-white">Developed by Team omegaSquad</div>
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
             Ministry of Defense / Indian Coast Guard Problem Statement: AI-Powered Oil Spill Detection & Attribution
           </p>
         </div>
-        <div className="text-xs text-slate-400 font-mono">
-          Release Version: <strong className="text-slate-200">v2.4.0-production</strong>
+        <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+          Release Version: <strong className="text-slate-900 dark:text-slate-200">v2.4.0-production</strong>
         </div>
       </div>
     </div>

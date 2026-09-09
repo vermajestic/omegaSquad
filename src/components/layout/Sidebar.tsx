@@ -50,15 +50,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggle }) => {
         <NavLink
           key={item.path}
           to={item.path}
-          className={`flex items-center gap-3 px-4 py-3 mx-2 rounded transition-colors group relative ${
+          className={`flex items-center gap-3 px-3.5 py-2.5 mx-2 rounded transition-colors duration-150 group relative ${
             isActive 
-              ? 'bg-cyan-500/10 text-cyan-400 border-l-2 border-cyan-500' 
-              : 'text-slate-400 hover:bg-navy-800 hover:text-slate-100'
+              ? 'bg-white dark:bg-[#131b2e] text-sky-700 dark:text-white border-l-2 border-sky-500 font-medium shadow-xs dark:shadow-none' 
+              : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#131b2e]/60 hover:text-slate-950 dark:hover:text-slate-100'
           }`}
           title={isCollapsed ? item.name : undefined}
         >
-          <Icon size={20} className="flex-shrink-0" />
-          {!isCollapsed && <span className="text-sm font-medium whitespace-nowrap overflow-hidden">{item.name}</span>}
+          <Icon size={18} className="flex-shrink-0" />
+          {!isCollapsed && <span className="text-xs sm:text-sm whitespace-nowrap overflow-hidden tracking-tight">{item.name}</span>}
         </NavLink>
       );
     });
@@ -66,32 +66,33 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggle }) => {
 
   return (
     <aside 
-      className={`bg-navy-900 border-r border-navy-700 flex flex-col transition-all duration-300 ${
+      className={`bg-slate-50/90 dark:bg-[#0d1320] border-r border-slate-200 dark:border-[#1e293b] flex flex-col transition-all duration-200 ${
         isCollapsed ? 'w-16' : 'w-60'
       }`}
     >
-      <div className="h-14 flex items-center justify-center border-b border-navy-700 px-4">
+      <div className="h-14 flex items-center justify-center border-b border-slate-200 dark:border-[#1e293b] px-4">
         <Logo collapsed={isCollapsed} />
       </div>
 
-      <div className="flex-1 overflow-y-auto py-4 space-y-1">
+      <nav aria-label="Main Navigation" className="flex-1 overflow-y-auto py-3 space-y-0.5">
         {renderNavItems(mainNavItems)}
-      </div>
+      </nav>
 
-      <div className="border-t border-navy-700 py-4 space-y-1">
+      <nav aria-label="Secondary Navigation" className="border-t border-slate-200 dark:border-[#1e293b] py-3 space-y-0.5">
         {renderNavItems(bottomNavItems)}
-      </div>
+      </nav>
 
-      <div className="p-4 border-t border-navy-700 flex flex-col items-center gap-4">
+      <div className="p-3 border-t border-slate-200 dark:border-[#1e293b] flex flex-col items-center gap-3">
         <button 
           onClick={onToggle}
-          className="p-2 rounded-full hover:bg-navy-800 text-slate-400 transition-colors"
+          className="p-1.5 rounded hover:bg-slate-150 dark:hover:bg-[#131b2e] text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-colors"
+          title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
         >
-          {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
+          {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
         </button>
         {!isCollapsed && (
-          <div className="text-xs text-slate-500 font-medium px-2 py-1 bg-navy-950 rounded border border-navy-800">
-            omegaSquad
+          <div className="text-[11px] text-slate-500 dark:text-slate-400 font-mono px-2 py-0.5 bg-white dark:bg-[#080c14] rounded border border-slate-200 dark:border-[#1e293b]">
+            Team omegaSquad
           </div>
         )}
       </div>

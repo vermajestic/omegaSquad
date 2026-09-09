@@ -74,15 +74,15 @@ export const IncidentsPage: React.FC = () => {
   return (
     <div className="space-y-6 pb-12">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-5">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse" />
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+            <span className="w-2.5 h-2.5 rounded-full bg-cyan-500 animate-pulse" />
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
               Incident Registry & Surveillance Dossiers
             </h1>
           </div>
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-slate-600 dark:text-slate-400">
             Official operational log of satellite-detected marine hydrocarbon discharge incidents
           </p>
         </div>
@@ -100,30 +100,30 @@ export const IncidentsPage: React.FC = () => {
 
       {/* KPI Status Tiles */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-        <div className="p-3.5 rounded-xl bg-[#111827] border border-slate-800">
-          <span className="text-[10px] uppercase font-bold text-slate-400">Total Incidents</span>
-          <div className="text-xl font-bold font-mono text-white mt-1">{stats.total}</div>
+        <div className="p-3.5 rounded-xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-xs">
+          <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">Total Incidents</span>
+          <div className="text-xl font-bold font-mono text-slate-900 dark:text-white mt-1">{stats.total}</div>
         </div>
-        <div className="p-3.5 rounded-xl bg-[#111827] border border-amber-500/30 bg-amber-950/10">
-          <span className="text-[10px] uppercase font-bold text-amber-400">Investigating</span>
-          <div className="text-xl font-bold font-mono text-amber-400 mt-1">{stats.investigating}</div>
+        <div className="p-3.5 rounded-xl bg-amber-50/60 dark:bg-[#111827] border border-amber-200 dark:border-amber-500/30 shadow-xs">
+          <span className="text-[10px] uppercase font-bold text-amber-700 dark:text-amber-400">Investigating</span>
+          <div className="text-xl font-bold font-mono text-amber-600 dark:text-amber-400 mt-1">{stats.investigating}</div>
         </div>
-        <div className="p-3.5 rounded-xl bg-[#111827] border border-blue-500/30 bg-blue-950/10">
-          <span className="text-[10px] uppercase font-bold text-blue-400">Vessel Identified</span>
-          <div className="text-xl font-bold font-mono text-blue-400 mt-1">{stats.identified}</div>
+        <div className="p-3.5 rounded-xl bg-blue-50/60 dark:bg-[#111827] border border-blue-200 dark:border-blue-500/30 shadow-xs">
+          <span className="text-[10px] uppercase font-bold text-blue-700 dark:text-blue-400">Vessel Identified</span>
+          <div className="text-xl font-bold font-mono text-blue-600 dark:text-blue-400 mt-1">{stats.identified}</div>
         </div>
-        <div className="p-3.5 rounded-xl bg-[#111827] border border-emerald-500/30 bg-emerald-950/10">
-          <span className="text-[10px] uppercase font-bold text-emerald-400">Resolved Cases</span>
-          <div className="text-xl font-bold font-mono text-emerald-400 mt-1">{stats.resolved}</div>
+        <div className="p-3.5 rounded-xl bg-emerald-50/60 dark:bg-[#111827] border border-emerald-200 dark:border-emerald-500/30 shadow-xs">
+          <span className="text-[10px] uppercase font-bold text-emerald-700 dark:text-emerald-400">Resolved Cases</span>
+          <div className="text-xl font-bold font-mono text-emerald-600 dark:text-emerald-400 mt-1">{stats.resolved}</div>
         </div>
-        <div className="p-3.5 rounded-xl bg-[#111827] border border-slate-700 bg-slate-900/30">
-          <span className="text-[10px] uppercase font-bold text-slate-400">False Positives</span>
-          <div className="text-xl font-bold font-mono text-slate-400 mt-1">{stats.falsePositives}</div>
+        <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#111827] border border-slate-200 dark:border-slate-700 shadow-xs">
+          <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">False Positives</span>
+          <div className="text-xl font-bold font-mono text-slate-600 dark:text-slate-400 mt-1">{stats.falsePositives}</div>
         </div>
       </div>
 
       {/* Filter Toolbar */}
-      <div className="p-4 rounded-xl bg-[#111827] border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3">
+      <div className="p-4 rounded-xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-xs">
         {/* Search */}
         <div className="relative flex-1 max-w-md">
           <input
@@ -131,9 +131,9 @@ export const IncidentsPage: React.FC = () => {
             placeholder="Search incident ID, sector, or region..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-slate-900 border border-slate-700/80 rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+            className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700/80 rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500 shadow-2xs"
           />
-          <Search className="w-3.5 h-3.5 text-slate-500 absolute left-2.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
         </div>
 
         {/* Filters */}
@@ -141,7 +141,7 @@ export const IncidentsPage: React.FC = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-slate-900 border border-slate-700/80 rounded-lg px-2.5 py-1.5 text-slate-300 focus:outline-none focus:border-cyan-500 cursor-pointer"
+            className="bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700/80 rounded-lg px-2.5 py-1.5 text-slate-800 dark:text-slate-300 focus:outline-none focus:border-cyan-500 cursor-pointer shadow-2xs"
           >
             <option value="ALL">All Statuses</option>
             <option value="new">New Alerts</option>
@@ -154,7 +154,7 @@ export const IncidentsPage: React.FC = () => {
           <select
             value={regionFilter}
             onChange={(e) => setRegionFilter(e.target.value)}
-            className="bg-slate-900 border border-slate-700/80 rounded-lg px-2.5 py-1.5 text-slate-300 focus:outline-none focus:border-cyan-500 cursor-pointer"
+            className="bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700/80 rounded-lg px-2.5 py-1.5 text-slate-800 dark:text-slate-300 focus:outline-none focus:border-cyan-500 cursor-pointer shadow-2xs"
           >
             <option value="ALL">All Maritime Regions</option>
             <option value="Arabian Sea">Arabian Sea</option>
@@ -165,7 +165,7 @@ export const IncidentsPage: React.FC = () => {
           <select
             value={sensorFilter}
             onChange={(e) => setSensorFilter(e.target.value)}
-            className="bg-slate-900 border border-slate-700/80 rounded-lg px-2.5 py-1.5 text-slate-300 focus:outline-none focus:border-cyan-500 cursor-pointer"
+            className="bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700/80 rounded-lg px-2.5 py-1.5 text-slate-800 dark:text-slate-300 focus:outline-none focus:border-cyan-500 cursor-pointer shadow-2xs"
           >
             <option value="ALL">All Sensors</option>
             <option value="SAR">Sentinel-1 (SAR)</option>
@@ -175,10 +175,10 @@ export const IncidentsPage: React.FC = () => {
       </div>
 
       {/* Incidents Table */}
-      <div className="rounded-xl bg-[#111827] border border-slate-800 shadow-xl overflow-hidden">
+      <div className="rounded-xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-xs dark:shadow-xl overflow-hidden transition-colors">
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left">
-            <thead className="text-[11px] uppercase tracking-wider text-slate-400 border-b border-slate-800 bg-[#0a0f1e]/60 font-semibold">
+            <thead className="text-[11px] uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800 bg-slate-50/90 dark:bg-[#0a0f1e]/60 font-semibold">
               <tr>
                 <th className="py-3 px-4">Incident ID</th>
                 <th className="py-3 px-3">Date Detected</th>
@@ -191,7 +191,7 @@ export const IncidentsPage: React.FC = () => {
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/70 font-mono">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/70 font-mono">
               {filteredIncidents.map((inc) => {
                 const conf = inc.confidence ?? 85;
                 const isPrimary = inc.id === 'OS-2026-DEMO-041';
@@ -202,42 +202,42 @@ export const IncidentsPage: React.FC = () => {
                     onClick={() => navigate(`/incidents/${inc.id}`)}
                     className={`cursor-pointer transition ${
                       isPrimary
-                        ? 'bg-cyan-950/20 hover:bg-cyan-950/30 text-cyan-200'
-                        : 'hover:bg-slate-800/40 text-slate-300'
+                        ? 'bg-cyan-50/50 dark:bg-cyan-950/20 hover:bg-cyan-100/50 dark:hover:bg-cyan-950/30 text-slate-900 dark:text-cyan-200'
+                        : 'hover:bg-slate-50/80 dark:hover:bg-slate-800/40 text-slate-700 dark:text-slate-300'
                     }`}
                   >
-                    <td className="py-3 px-4 font-bold text-cyan-400 flex items-center gap-1.5">
+                    <td className="py-3 px-4 font-bold text-cyan-600 dark:text-cyan-400 flex items-center gap-1.5">
                       <span>{inc.id}</span>
                       {isPrimary && (
-                        <span className="text-[9px] px-1.5 py-0.2 rounded bg-cyan-950 text-cyan-400 border border-cyan-800">
+                        <span className="text-[9px] px-1.5 py-0.5 rounded bg-cyan-100 text-cyan-800 border border-cyan-200 dark:bg-cyan-950 dark:text-cyan-400 dark:border-cyan-800">
                           Demo Case
                         </span>
                       )}
                     </td>
-                    <td className="py-3 px-3 font-sans text-slate-400">
+                    <td className="py-3 px-3 font-sans text-slate-500 dark:text-slate-400">
                       {formatDate(inc.detectionTime || '2026-09-04T18:42:00Z')}
                     </td>
-                    <td className="py-3 px-3 font-sans text-slate-200 font-semibold">
+                    <td className="py-3 px-3 font-sans text-slate-900 dark:text-slate-200 font-semibold">
                       {inc.region}
                     </td>
-                    <td className="py-3 px-3 text-slate-400">
+                    <td className="py-3 px-3 text-slate-500 dark:text-slate-400">
                       {inc.coordinates ? formatCoordinates(inc.coordinates.lat, inc.coordinates.lng) : 'N/A'}
                     </td>
-                    <td className="py-3 px-3 font-bold text-red-400">
+                    <td className="py-3 px-3 font-bold text-rose-600 dark:text-red-400">
                       {formatArea(inc.estimatedArea ?? inc.area ?? 12.4)}
                     </td>
                     <td className="py-3 px-3 font-sans">
-                      <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[11px]">
+                      <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[11px] text-slate-700 dark:text-slate-300">
                         {inc.satellite} ({inc.sensor})
                       </span>
                     </td>
                     <td className="py-3 px-3">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-emerald-400">{formatConfidence(conf)}</span>
-                        <div className="w-12 h-1.5 bg-slate-800 rounded-full overflow-hidden hidden sm:block">
+                        <span className="font-bold text-emerald-600 dark:text-emerald-400">{formatConfidence(conf)}</span>
+                        <div className="w-12 h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden hidden sm:block">
                           <div
                             className={`h-full rounded-full ${
-                              conf >= 80 ? 'bg-emerald-500' : conf >= 50 ? 'bg-amber-500' : 'bg-slate-500'
+                              conf >= 80 ? 'bg-emerald-500' : conf >= 50 ? 'bg-amber-500' : 'bg-slate-400'
                             }`}
                             style={{ width: `${conf}%` }}
                           />
@@ -256,7 +256,7 @@ export const IncidentsPage: React.FC = () => {
                             e.stopPropagation();
                             navigate(`/incidents/${inc.id}`);
                           }}
-                          className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 transition text-xs font-semibold"
+                          className="px-2.5 py-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200 transition text-xs font-semibold"
                         >
                           Dossier
                         </button>
@@ -265,7 +265,7 @@ export const IncidentsPage: React.FC = () => {
                             e.stopPropagation();
                             navigate(`/vessels/attribution/${inc.id}`);
                           }}
-                          className="p-1 rounded bg-cyan-950 border border-cyan-800 text-cyan-400 hover:bg-cyan-900 transition"
+                          className="p-1 rounded bg-cyan-50 border border-cyan-200 text-cyan-700 hover:bg-cyan-100 dark:bg-cyan-950 dark:border-cyan-800 dark:text-cyan-400 dark:hover:bg-cyan-900 transition"
                           title="Attribution Analysis"
                         >
                           <ExternalLink className="w-3.5 h-3.5" />

@@ -1,13 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface LogoProps {
   collapsed?: boolean;
+  to?: string;
+  className?: string;
 }
 
-export const Logo: React.FC<LogoProps> = ({ collapsed }) => {
+export const Logo: React.FC<LogoProps> = ({ collapsed, to = '/', className = '' }) => {
   return (
-    <div className="flex items-center gap-3">
-      <div className="relative flex-shrink-0">
+    <Link 
+      to={to} 
+      className={`flex items-center gap-3 cursor-pointer group hover:opacity-95 transition-opacity ${className}`}
+      title="Return to Ocean Sentinel Homepage"
+    >
+      <div className="relative flex-shrink-0 group-hover:scale-105 transition-transform duration-150">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
           {/* Signal Circles */}
           <circle cx="16" cy="12" r="8" stroke="#06b6d4" strokeWidth="1" strokeOpacity="0.2" fill="none" />
@@ -20,10 +27,14 @@ export const Logo: React.FC<LogoProps> = ({ collapsed }) => {
       </div>
       {!collapsed && (
         <div className="flex flex-col">
-          <span className="font-bold tracking-wider text-sm text-slate-100">OCEAN SENTINEL</span>
-          <span className="text-[10px] text-slate-400 tracking-widest uppercase">Marine Intelligence</span>
+          <span className="font-bold tracking-wider text-sm text-slate-900 dark:text-white transition-colors group-hover:text-cyan-600 dark:group-hover:text-cyan-400">
+            OCEAN SENTINEL
+          </span>
+          <span className="text-[10px] text-slate-500 dark:text-slate-400 tracking-widest uppercase font-mono font-medium transition-colors">
+            Marine Intelligence
+          </span>
         </div>
       )}
-    </div>
+    </Link>
   );
 };

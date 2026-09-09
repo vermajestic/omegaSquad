@@ -81,40 +81,53 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
           </filter>
         </defs>
 
-        {/* 1. Sea Surface Backscatter (Rough Water) */}
-        <rect width="800" height="500" fill={palette === 'thermal' ? '#141829' : palette === 'oceanic' ? '#071626' : '#131b2a'} />
-        <rect width="800" height="500" filter="url(#sarSpeckle)" opacity={palette === 'thermal' ? 0.35 : 0.65} />
+        {/* 1. Sea Surface Backscatter (Rough Water) or Uploaded Satellite Product */}
+        {detection?.originalImageUrl ? (
+          <image
+            href={detection.originalImageUrl}
+            x="0"
+            y="0"
+            width="800"
+            height="500"
+            preserveAspectRatio="xMidYMid slice"
+          />
+        ) : (
+          <>
+            <rect width="800" height="500" fill={palette === 'thermal' ? '#141829' : palette === 'oceanic' ? '#071626' : '#131b2a'} />
+            <rect width="800" height="500" filter="url(#sarSpeckle)" opacity={palette === 'thermal' ? 0.35 : 0.65} />
 
-        {/* Bathymetry & Wave Swell bands */}
-        <g opacity="0.3" stroke="#38bdf8" strokeWidth="1.5" fill="none">
-          <path d="M 0 120 Q 200 90, 400 130 T 800 110" />
-          <path d="M 0 240 Q 250 200, 500 250 T 800 230" />
-          <path d="M 0 380 Q 220 340, 450 390 T 800 370" />
-        </g>
+            {/* Bathymetry & Wave Swell bands */}
+            <g opacity="0.3" stroke="#38bdf8" strokeWidth="1.5" fill="none">
+              <path d="M 0 120 Q 200 90, 400 130 T 800 110" />
+              <path d="M 0 240 Q 250 200, 500 250 T 800 230" />
+              <path d="M 0 380 Q 220 340, 450 390 T 800 370" />
+            </g>
 
-        {/* 2. Oil Slick Anomaly (Capillary Wave Damping Zone) */}
-        {/* Irregular oil slick boundary matching Arab Sea incident */}
-        <path
-          d="M 280 210 
-             C 310 180, 370 170, 430 190 
-             C 500 210, 560 200, 600 240 
-             C 630 270, 610 320, 550 335 
-             C 490 350, 460 380, 400 370 
-             C 330 360, 290 330, 270 290 
-             C 255 255, 260 230, 280 210 Z"
-          fill="url(#slickGradient)"
-        />
+            {/* 2. Oil Slick Anomaly (Capillary Wave Damping Zone) */}
+            {/* Irregular oil slick boundary matching Arab Sea incident */}
+            <path
+              d="M 280 210 
+                 C 310 180, 370 170, 430 190 
+                 C 500 210, 560 200, 600 240 
+                 C 630 270, 610 320, 550 335 
+                 C 490 350, 460 380, 400 370 
+                 C 330 360, 290 330, 270 290 
+                 C 255 255, 260 230, 280 210 Z"
+              fill="url(#slickGradient)"
+            />
 
-        {/* Secondary Slick Sheen */}
-        <path
-          d="M 460 280 
-             C 490 270, 540 285, 570 300 
-             C 610 320, 620 345, 590 365 
-             C 560 380, 520 370, 480 355 
-             C 450 340, 440 300, 460 280 Z"
-          fill="#020612"
-          opacity="0.85"
-        />
+            {/* Secondary Slick Sheen */}
+            <path
+              d="M 460 280 
+                 C 490 270, 540 285, 570 300 
+                 C 610 320, 620 345, 590 365 
+                 C 560 380, 520 370, 480 355 
+                 C 450 340, 440 300, 460 280 Z"
+              fill="#020612"
+              opacity="0.85"
+            />
+          </>
+        )}
 
         {/* 3. AI Detection Mask (Neon Cyan Contour + Segmentation Heatmap) */}
         {showOverlay && (
@@ -193,16 +206,16 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
   };
 
   return (
-    <div className={`rounded-xl bg-[#111827] border border-slate-800 shadow-2xl overflow-hidden flex flex-col ${className}`}>
+    <div className={`rounded-xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-xs dark:shadow-2xl overflow-hidden flex flex-col transition-colors ${className}`}>
       {/* Top Toolbar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-b border-slate-800 bg-[#0d1424]">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#0d1424] transition-colors">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-bold text-slate-200 uppercase tracking-wider">Display Mode:</span>
-          <div className="inline-flex rounded-lg bg-slate-900 p-1 border border-slate-800 text-xs">
+          <span className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Display Mode:</span>
+          <div className="inline-flex rounded-lg bg-slate-200/80 dark:bg-slate-900 p-0.5 border border-slate-300 dark:border-slate-800 text-xs">
             <button
               onClick={() => setViewMode('overlay')}
               className={`px-2.5 py-1 rounded font-medium transition ${
-                viewMode === 'overlay' ? 'bg-cyan-500 text-slate-950 font-semibold' : 'text-slate-400 hover:text-slate-200'
+                viewMode === 'overlay' ? 'bg-cyan-500 text-white dark:text-slate-950 font-semibold' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
               Overlay Mask
@@ -210,7 +223,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
             <button
               onClick={() => setViewMode('side-by-side')}
               className={`px-2.5 py-1 rounded font-medium transition ${
-                viewMode === 'side-by-side' ? 'bg-cyan-500 text-slate-950 font-semibold' : 'text-slate-400 hover:text-slate-200'
+                viewMode === 'side-by-side' ? 'bg-cyan-500 text-white dark:text-slate-950 font-semibold' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
               Side-by-Side
@@ -220,9 +233,9 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
 
         {/* Opacity Slider */}
         {viewMode === 'overlay' && (
-          <div className="flex items-center gap-2 text-xs text-slate-300">
-            <Sliders className="w-3.5 h-3.5 text-cyan-400" />
-            <span className="text-slate-400">Mask Opacity:</span>
+          <div className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300">
+            <Sliders className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+            <span className="text-slate-500 dark:text-slate-400">Mask Opacity:</span>
             <input
               type="range"
               min="0"
@@ -230,45 +243,45 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
               step="0.05"
               value={maskOpacity}
               onChange={(e) => setMaskOpacity(parseFloat(e.target.value))}
-              className="w-24 h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500"
+              className="w-24 h-1.5 bg-slate-300 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500"
             />
-            <span className="font-mono text-cyan-400 w-8 text-right">{Math.round(maskOpacity * 100)}%</span>
+            <span className="font-mono text-cyan-600 dark:text-cyan-400 w-8 text-right font-semibold">{Math.round(maskOpacity * 100)}%</span>
           </div>
         )}
 
         {/* Zoom & Palette Tools */}
         <div className="flex items-center gap-1.5">
-          <div className="inline-flex rounded-lg bg-slate-900 p-0.5 border border-slate-800">
+          <div className="inline-flex rounded-lg bg-slate-200/80 dark:bg-slate-900 p-0.5 border border-slate-300 dark:border-slate-800">
             <button
               onClick={() => setZoomLevel(prev => Math.min(2.5, prev + 0.25))}
-              className="p-1.5 text-slate-400 hover:text-slate-200 hover:bg-slate-800 rounded transition"
+              className="p-1.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-300/60 dark:hover:bg-slate-800 rounded transition"
               title="Zoom In"
             >
               <ZoomIn className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={() => setZoomLevel(prev => Math.max(1, prev - 0.25))}
-              className="p-1.5 text-slate-400 hover:text-slate-200 hover:bg-slate-800 rounded transition"
+              className="p-1.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-300/60 dark:hover:bg-slate-800 rounded transition"
               title="Zoom Out"
             >
               <ZoomOut className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={() => setZoomLevel(1)}
-              className="p-1.5 text-slate-400 hover:text-slate-200 hover:bg-slate-800 rounded transition"
+              className="p-1.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-300/60 dark:hover:bg-slate-800 rounded transition"
               title="Reset Zoom"
             >
               <RotateCcw className="w-3.5 h-3.5" />
             </button>
           </div>
 
-          <div className="inline-flex rounded-lg bg-slate-900 p-0.5 border border-slate-800 text-[11px]">
+          <div className="inline-flex rounded-lg bg-slate-200/80 dark:bg-slate-900 p-0.5 border border-slate-300 dark:border-slate-800 text-[11px]">
             {(['sar', 'oceanic', 'thermal'] as const).map(p => (
               <button
                 key={p}
                 onClick={() => setPalette(p)}
                 className={`px-2 py-1 rounded uppercase font-semibold transition ${
-                  palette === p ? 'bg-slate-700 text-cyan-400' : 'text-slate-400 hover:text-slate-200'
+                  palette === p ? 'bg-cyan-500 text-white dark:bg-slate-700 dark:text-cyan-400' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
               >
                 {p}

@@ -73,20 +73,20 @@ export const VesselTable: React.FC<VesselTableProps> = ({
   const getPriorityBadge = (priority?: string) => {
     switch (priority) {
       case 'high':
-        return 'bg-red-950/80 text-red-400 border border-red-800/80';
+        return 'bg-rose-50 text-rose-700 border border-rose-200 dark:bg-red-950/80 dark:text-red-400 dark:border-red-800/80';
       case 'review':
-        return 'bg-amber-950/80 text-amber-400 border border-amber-800/80';
+        return 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-950/80 dark:text-amber-400 dark:border-amber-800/80';
       default:
-        return 'bg-slate-800 text-slate-400 border border-slate-700';
+        return 'bg-slate-100 text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700';
     }
   };
 
   return (
-    <div className="rounded-xl bg-[#111827] border border-slate-800 shadow-xl overflow-hidden">
+    <div className="rounded-xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-xs dark:shadow-xl overflow-hidden transition-colors">
       {/* Table Controls Bar */}
-      <div className="p-4 border-b border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3 bg-[#0e1424]">
+      <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3 bg-slate-50 dark:bg-[#0e1424] transition-colors">
         <div className="flex items-center gap-2">
-          <h3 className="text-sm font-bold text-white uppercase tracking-wider">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
             AIS Vessel Traffic Correlation ({filteredCandidates.length} Candidates)
           </h3>
         </div>
@@ -99,16 +99,16 @@ export const VesselTable: React.FC<VesselTableProps> = ({
               placeholder="Search vessel name or IMO..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="bg-slate-900 border border-slate-700/80 rounded-lg pl-8 pr-3 py-1.5 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500 w-48 sm:w-56"
+              className="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700/80 rounded-lg pl-8 pr-3 py-1.5 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500 w-48 sm:w-56 shadow-2xs"
             />
-            <Search className="w-3.5 h-3.5 text-slate-500 absolute left-2.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
           </div>
 
           {/* Type Filter */}
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="bg-slate-900 border border-slate-700/80 rounded-lg px-2.5 py-1.5 text-slate-300 focus:outline-none focus:border-cyan-500 cursor-pointer"
+            className="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700/80 rounded-lg px-2.5 py-1.5 text-slate-800 dark:text-slate-300 focus:outline-none focus:border-cyan-500 cursor-pointer shadow-2xs"
           >
             <option value="ALL">All Ship Types</option>
             <option value="Tanker">Tankers</option>
@@ -121,7 +121,7 @@ export const VesselTable: React.FC<VesselTableProps> = ({
           <select
             value={priorityFilter}
             onChange={(e) => setPriorityFilter(e.target.value)}
-            className="bg-slate-900 border border-slate-700/80 rounded-lg px-2.5 py-1.5 text-slate-300 focus:outline-none focus:border-cyan-500 cursor-pointer"
+            className="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700/80 rounded-lg px-2.5 py-1.5 text-slate-800 dark:text-slate-300 focus:outline-none focus:border-cyan-500 cursor-pointer shadow-2xs"
           >
             <option value="ALL">All Priorities</option>
             <option value="high">High Priority</option>
@@ -134,11 +134,11 @@ export const VesselTable: React.FC<VesselTableProps> = ({
       {/* Table Container */}
       <div className="overflow-x-auto">
         <table className="w-full text-xs text-left">
-          <thead className="text-[11px] uppercase tracking-wider text-slate-400 border-b border-slate-800 bg-[#0a0f1e]/60">
+          <thead className="text-[11px] uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800 bg-slate-50/90 dark:bg-[#0a0f1e]/60">
             <tr>
               <th
                 onClick={() => handleSort('rank')}
-                className="py-3 px-3 cursor-pointer hover:text-cyan-400"
+                className="py-3 px-3 cursor-pointer hover:text-cyan-600 dark:hover:text-cyan-400"
               >
                 <div className="flex items-center gap-1">
                   <span>Rank</span>
@@ -149,7 +149,7 @@ export const VesselTable: React.FC<VesselTableProps> = ({
               <th className="py-3 px-3">Type</th>
               <th
                 onClick={() => handleSort('distance')}
-                className="py-3 px-3 cursor-pointer hover:text-cyan-400"
+                className="py-3 px-3 cursor-pointer hover:text-cyan-600 dark:hover:text-cyan-400"
               >
                 <div className="flex items-center gap-1">
                   <span>Proximity</span>
@@ -159,7 +159,7 @@ export const VesselTable: React.FC<VesselTableProps> = ({
               <th className="py-3 px-3">Time Offset</th>
               <th
                 onClick={() => handleSort('trackMatch')}
-                className="py-3 px-3 cursor-pointer hover:text-cyan-400"
+                className="py-3 px-3 cursor-pointer hover:text-cyan-600 dark:hover:text-cyan-400"
               >
                 <div className="flex items-center gap-1">
                   <span>Track Match</span>
@@ -169,7 +169,7 @@ export const VesselTable: React.FC<VesselTableProps> = ({
               <th className="py-3 px-3">Speed Pattern</th>
               <th
                 onClick={() => handleSort('score')}
-                className="py-3 px-3 cursor-pointer hover:text-cyan-400"
+                className="py-3 px-3 cursor-pointer hover:text-cyan-600 dark:hover:text-cyan-400"
               >
                 <div className="flex items-center gap-1">
                   <span>Attribution</span>
@@ -180,7 +180,7 @@ export const VesselTable: React.FC<VesselTableProps> = ({
               <th className="py-3 px-4 text-right">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-800/70 font-mono">
+          <tbody className="divide-y divide-slate-100 dark:divide-slate-800/70 font-mono">
             {filteredCandidates.map((c, idx) => {
               const isSelected = c.id === selectedVesselId;
               const isTop = idx === 0 || c.priority === 'high';
@@ -197,52 +197,52 @@ export const VesselTable: React.FC<VesselTableProps> = ({
                   onClick={() => onSelectVessel(c)}
                   className={`cursor-pointer transition ${
                     isSelected
-                      ? 'bg-cyan-950/40 text-cyan-200'
+                      ? 'bg-cyan-50/70 dark:bg-cyan-950/40 text-cyan-900 dark:text-cyan-200'
                       : isTop
-                      ? 'bg-cyan-950/10 hover:bg-slate-800/60 text-slate-200'
-                      : 'hover:bg-slate-800/40 text-slate-300'
+                      ? 'bg-cyan-50/30 hover:bg-slate-100/80 dark:bg-cyan-950/10 dark:hover:bg-slate-800/60 text-slate-800 dark:text-slate-200'
+                      : 'hover:bg-slate-50/80 dark:hover:bg-slate-800/40 text-slate-700 dark:text-slate-300'
                   }`}
                 >
                   <td className="py-3 px-3 font-bold">
                     <span
                       className={`inline-flex w-5 h-5 rounded-full items-center justify-center text-[10px] ${
-                        isTop ? 'bg-cyan-500 text-slate-950 font-extrabold' : 'bg-slate-800 text-slate-400'
+                        isTop ? 'bg-cyan-500 text-white dark:text-slate-950 font-extrabold' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
                       }`}
                     >
                       {rank}
                     </span>
                   </td>
                   <td className="py-3 px-4 font-sans font-semibold">
-                    <div className="text-slate-100 flex items-center gap-1.5">
+                    <div className="text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
                       <span>{name}</span>
                       {isTop && (
-                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse"></span>
                       )}
                     </div>
-                    <div className="text-[10px] text-slate-400 font-mono">IMO {imo}</div>
+                    <div className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">IMO {imo}</div>
                   </td>
                   <td className="py-3 px-3 font-sans">
-                    <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[11px] text-slate-300">
+                    <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[11px] text-slate-700 dark:text-slate-300">
                       {type}
                     </span>
                   </td>
-                  <td className="py-3 px-3 font-bold text-amber-400">
+                  <td className="py-3 px-3 font-bold text-amber-600 dark:text-amber-400">
                     {formatDistance(dist)}
                   </td>
-                  <td className="py-3 px-3 text-slate-300">
+                  <td className="py-3 px-3 text-slate-600 dark:text-slate-300">
                     {c.timeOffset || c.timeDifference || 'N/A'}
                   </td>
-                  <td className="py-3 px-3 text-slate-200 font-bold">
+                  <td className="py-3 px-3 text-slate-800 dark:text-slate-200 font-bold">
                     {c.trackMatchScore ?? c.trackMatch ?? 0}%
                   </td>
                   <td className="py-3 px-3 font-sans">
                     <span
                       className={`text-[10px] px-1.5 py-0.5 rounded uppercase font-semibold ${
                         (c.speedPatternScore || c.speedPattern) === 'high'
-                          ? 'text-red-400 bg-red-950/50'
+                          ? 'text-rose-700 bg-rose-50 dark:text-red-400 dark:bg-red-950/50'
                           : (c.speedPatternScore || c.speedPattern) === 'medium'
-                          ? 'text-amber-400 bg-amber-950/50'
-                          : 'text-slate-400 bg-slate-800/50'
+                          ? 'text-amber-700 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/50'
+                          : 'text-slate-600 bg-slate-100 dark:text-slate-400 dark:bg-slate-800/50'
                       }`}
                     >
                       {c.speedPatternScore || c.speedPattern || 'low'}
@@ -250,13 +250,13 @@ export const VesselTable: React.FC<VesselTableProps> = ({
                   </td>
                   <td className="py-3 px-3">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-cyan-400">
+                      <span className="font-bold text-cyan-600 dark:text-cyan-400">
                         {formatConfidence(score)}
                       </span>
-                      <div className="w-12 h-1.5 bg-slate-800 rounded-full overflow-hidden hidden sm:block">
+                      <div className="w-12 h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden hidden sm:block">
                         <div
                           className={`h-full rounded-full ${
-                            score >= 80 ? 'bg-cyan-500' : score >= 50 ? 'bg-amber-500' : 'bg-slate-500'
+                            score >= 80 ? 'bg-cyan-500' : score >= 50 ? 'bg-amber-500' : 'bg-slate-400'
                           }`}
                           style={{ width: `${score}%` }}
                         ></div>
@@ -276,7 +276,7 @@ export const VesselTable: React.FC<VesselTableProps> = ({
                           onSelectVessel(c);
                         }}
                         className={`px-2.5 py-1 rounded transition text-xs ${
-                          isSelected ? 'bg-cyan-500 text-slate-950 font-bold' : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
+                          isSelected ? 'bg-cyan-500 text-white dark:text-slate-950 font-bold' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300'
                         }`}
                       >
                         Inspect
@@ -288,7 +288,7 @@ export const VesselTable: React.FC<VesselTableProps> = ({
                             e.stopPropagation();
                             onViewAttribution(c);
                           }}
-                          className="px-2.5 py-1 rounded bg-cyan-950 border border-cyan-800 text-cyan-400 hover:bg-cyan-900 transition text-xs font-semibold flex items-center gap-1"
+                          className="px-2.5 py-1 rounded bg-cyan-50 border border-cyan-200 text-cyan-700 hover:bg-cyan-100 dark:bg-cyan-950 dark:border-cyan-800 dark:text-cyan-400 dark:hover:bg-cyan-900 transition text-xs font-semibold flex items-center gap-1"
                         >
                           <span>Attribution</span>
                           <ChevronRight className="w-3.5 h-3.5" />

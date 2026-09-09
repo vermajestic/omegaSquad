@@ -4,6 +4,8 @@ export interface CardProps {
   title?: string;
   subtitle?: string;
   action?: ReactNode;
+  padding?: 'none' | 'condensed' | 'default' | 'relaxed';
+  as?: 'section' | 'article' | 'div';
   className?: string;
   children: ReactNode;
 }
@@ -12,23 +14,32 @@ export const Card: React.FC<CardProps> = ({
   title,
   subtitle,
   action,
+  padding = 'default',
+  as: Component = 'section',
   className = '',
   children,
 }) => {
+  const paddingStyles = {
+    none: 'p-0',
+    condensed: 'p-3',
+    default: 'p-4 sm:p-5',
+    relaxed: 'p-6',
+  };
+
   return (
-    <div className={`bg-navy-800 border border-navy-700 rounded-md overflow-hidden ${className}`}>
+    <Component className={`bg-white dark:bg-[#0d1320] border border-slate-200 dark:border-[#1e293b] rounded-lg overflow-hidden shadow-xs dark:shadow-none text-slate-800 dark:text-slate-100 transition-colors duration-150 ${className}`}>
       {(title || action) && (
-        <div className="px-4 py-3 border-b border-navy-700 flex justify-between items-center bg-navy-800">
+        <header className="px-4 py-3 sm:px-5 sm:py-3.5 border-b border-slate-200 dark:border-[#1e293b] flex justify-between items-center bg-slate-50/80 dark:bg-[#101726]/60">
           <div>
-            {title && <h3 className="text-sm font-semibold text-slate-100">{title}</h3>}
-            {subtitle && <p className="text-xs text-slate-400 mt-0.5">{subtitle}</p>}
+            {title && <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 tracking-tight">{title}</h3>}
+            {subtitle && <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 font-normal">{subtitle}</p>}
           </div>
-          {action && <div className="flex-shrink-0 ml-4">{action}</div>}
-        </div>
+          {action && <div className="flex-shrink-0 ml-3">{action}</div>}
+        </header>
       )}
-      <div className="p-4">
+      <div className={paddingStyles[padding]}>
         {children}
       </div>
-    </div>
+    </Component>
   );
 };

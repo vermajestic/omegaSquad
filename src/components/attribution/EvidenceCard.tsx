@@ -33,23 +33,23 @@ export const EvidenceCard: React.FC<EvidenceCardProps> = ({
   };
 
   const getStatusColor = (val: number) => {
-    if (val >= 90) return 'text-emerald-400 bg-emerald-950/60 border-emerald-800';
-    if (val >= 75) return 'text-cyan-400 bg-cyan-950/60 border-cyan-800';
-    return 'text-amber-400 bg-amber-950/60 border-amber-800';
+    if (val >= 90) return 'text-emerald-700 bg-emerald-50 border-emerald-200 dark:text-emerald-400 dark:bg-emerald-950/60 dark:border-emerald-800';
+    if (val >= 75) return 'text-cyan-700 bg-cyan-50 border-cyan-200 dark:text-cyan-400 dark:bg-cyan-950/60 dark:border-cyan-800';
+    return 'text-amber-700 bg-amber-50 border-amber-200 dark:text-amber-400 dark:bg-amber-950/60 dark:border-amber-800';
   };
 
   return (
-    <div className={`rounded-xl bg-[#111827] border border-slate-800 p-5 shadow-xl flex flex-col justify-between ${className}`}>
+    <div className={`rounded-xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 p-5 shadow-xs dark:shadow-xl flex flex-col justify-between transition-colors ${className}`}>
       <div>
         {/* Header */}
         <div className="flex items-start justify-between gap-2 mb-3">
           <div className="flex items-center gap-2">
-            <div className="p-2 rounded-lg bg-slate-900 border border-slate-800">
+            <div className="p-2 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
               {getIcon(name)}
             </div>
             <div>
-              <h4 className="text-sm font-bold text-slate-100">{name}</h4>
-              <span className="text-[11px] text-slate-400 font-mono">
+              <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">{name}</h4>
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
                 Weight: {Math.round(weight * 100)}% of model
               </span>
             </div>
@@ -75,14 +75,14 @@ export const EvidenceCard: React.FC<EvidenceCardProps> = ({
         </div>
 
         {/* Detailed forensic narrative */}
-        <p className="text-xs text-slate-300 leading-relaxed">
+        <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
           {evidence.description}
         </p>
       </div>
 
-      <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+      <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
         <span>Verification: Correlated</span>
-        <span className="text-emerald-400 flex items-center gap-1">
+        <span className="text-emerald-600 dark:text-emerald-400 flex items-center gap-1 font-semibold">
           <CheckCircle2 className="w-3.5 h-3.5" /> High Confidence
         </span>
       </div>

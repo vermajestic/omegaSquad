@@ -7,6 +7,8 @@ import { VesselTrackLine } from './VesselTrackLine';
 import { DetectionZone } from './DetectionZone';
 import { MapLegend } from './MapLegend';
 import { MapControls, type MapLayerState } from './MapControls';
+import { DriftSimulationLayer } from './DriftSimulationLayer';
+import { useAppContext } from '@/contexts/AppContext';
 
 interface MapContainerProps {
   incidents?: Incident[];
@@ -53,6 +55,7 @@ export const MapContainer: React.FC<MapContainerProps> = ({
   showControls = true,
   className = '',
 }) => {
+  const { theme } = useAppContext();
   const [mapCenter, setMapCenter] = useState<[number, number]>(center);
   const [mapZoom, setMapZoom] = useState<number>(zoom);
   const [layers, setLayers] = useState<MapLayerState>({
@@ -60,6 +63,7 @@ export const MapContainer: React.FC<MapContainerProps> = ({
     showVessels: true,
     showTracks: true,
     showZones: true,
+    showDriftSimulation: true,
   });
   const [isFullscreen, setIsFullscreen] = useState(false);
 
@@ -82,7 +86,7 @@ export const MapContainer: React.FC<MapContainerProps> = ({
 
   return (
     <div
-      className={`relative w-full overflow-hidden rounded-xl border border-slate-800 bg-[#0a0f1e] shadow-2xl transition-all ${
+      className={`relative w-full overflow-hidden rounded-lg border border-slate-200 dark:border-[#1e293b] bg-slate-100 dark:bg-[#080c14] shadow-xs dark:shadow-none transition-all ${
         isFullscreen ? 'fixed inset-0 z-[2000] !h-screen !rounded-none' : ''
       } ${className}`}
       style={{ height: isFullscreen ? '100vh' : height }}
@@ -91,14 +95,19 @@ export const MapContainer: React.FC<MapContainerProps> = ({
         center={mapCenter}
         zoom={mapZoom}
         scrollWheelZoom={true}
-        style={{ height: '100%', width: '100%', background: '#0a0f1e' }}
+        style={{ height: '100%', width: '100%', background: theme === 'dark' ? '#080c14' : '#f1f5f9' }}
       >
         <MapViewController center={mapCenter} zoom={mapZoom} />
 
-        {/* High performance dark matter maritime basemap */}
+        {/* Dynamic basemap: Dark Matter in dark mode, Voyager in light mode */}
         <TileLayer
+          key={theme}
           attribution='&copy; <a href="https://carto.com/">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          url={
+            theme === 'dark'
+              ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+              : 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
+          }
           subdomains="abcd"
           maxZoom={19}
         />
@@ -149,6 +158,11 @@ export const MapContainer: React.FC<MapContainerProps> = ({
             />
           );
         })}
+
+        {/* Drift Simulation Layers */}
+        {layers.showDriftSimulation && incidents.map(inc => (
+          <DriftSimulationLayer key={`drift-${inc.id}`} incident={inc} />
+        ))}
       </LeafletMapContainer>
 
       {/* Floating Controls */}

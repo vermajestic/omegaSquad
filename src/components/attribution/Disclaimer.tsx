@@ -6,13 +6,13 @@ interface DisclaimerProps {
 
 export const Disclaimer: React.FC<DisclaimerProps> = ({ className = '' }) => {
   return (
-    <div className={`rounded-xl bg-slate-900/60 border border-slate-800 p-4 text-xs text-slate-400 ${className}`}>
+    <div className={`rounded-xl bg-slate-100/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 p-4 text-xs text-slate-600 dark:text-slate-400 transition-colors ${className}`}>
       <div className="flex items-start gap-3">
-        <Info className="w-4 h-4 text-cyan-400 flex-shrink-0 mt-0.5" />
+        <Info className="w-4 h-4 text-cyan-600 dark:text-cyan-400 flex-shrink-0 mt-0.5" />
         <div className="space-y-1">
-          <div className="font-semibold text-slate-300 flex items-center gap-2">
+          <div className="font-semibold text-slate-900 dark:text-slate-300 flex items-center gap-2">
             <span>Maritime Legal & Regulatory Notice — AI-Assisted Intelligence</span>
-            <span className="text-[9px] px-1.5 py-0.2 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 font-mono">
+            <span className="text-[9px] px-1.5 py-0.5 rounded bg-cyan-100 text-cyan-800 border border-cyan-200 dark:bg-cyan-950 dark:text-cyan-400 dark:border-cyan-800 font-mono">
               MARPOL 73/78
             </span>
           </div>

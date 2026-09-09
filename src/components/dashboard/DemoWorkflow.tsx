@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Play, CheckCircle2, X, Sparkles, ArrowRight } from 'lucide-react';
+import { Play, CheckCircle2, X, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/common/Button';
 
 interface DemoWorkflowProps {
@@ -11,6 +11,25 @@ export const DemoWorkflow: React.FC<DemoWorkflowProps> = ({ onSelectDemoIncident
   const [isOpen, setIsOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const navigate = useNavigate();
+
+  // Close on Escape key and prevent body scroll when open
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
 
   const steps = [
     {
@@ -59,22 +78,22 @@ export const DemoWorkflow: React.FC<DemoWorkflowProps> = ({ onSelectDemoIncident
   return (
     <>
       {/* Banner Trigger */}
-      <div className="rounded-xl bg-gradient-to-r from-cyan-950/70 via-slate-900 to-blue-950/70 border border-cyan-500/30 p-4 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+      <section aria-label="Demo Workflow" className="rounded-lg bg-white dark:bg-[#0d1320] border border-slate-200 dark:border-[#1e293b] p-4 shadow-xs dark:shadow-none flex flex-col sm:flex-row items-center justify-between gap-4 transition-all duration-150">
         <div className="flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(6,182,212,0.3)]">
-            <Sparkles className="w-5 h-5 animate-pulse" />
+          <div className="w-9 h-9 rounded bg-sky-50 dark:bg-[#131b2e] border border-sky-100 dark:border-[#1e293b] text-sky-600 dark:text-sky-400 flex items-center justify-center flex-shrink-0">
+            <Play className="w-4 h-4 fill-current text-sky-600 dark:text-sky-400" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-bold text-slate-100 text-sm sm:text-base">
-                Interactive Judge Walkthrough
+              <span className="font-semibold text-slate-900 dark:text-white text-xs sm:text-sm tracking-tight">
+                Simulated Operational Walkthrough
               </span>
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
-                2-MIN DEMO
+              <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-sky-50 dark:bg-[#131b2e] text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-[#1e293b]">
+                INVESTIGATION SCENARIO
               </span>
             </div>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Experience the end-to-end flow: Satellite SAR detection → AIS backtracking → Vessel attribution → Legal report.
+            <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 font-normal">
+              Autonomous multi-stage pipeline: Sentinel-1 SAR Detection → 72h AIS Corridor Backtracking → MARPOL Forensic Attribution.
             </p>
           </div>
         </div>
@@ -83,37 +102,51 @@ export const DemoWorkflow: React.FC<DemoWorkflowProps> = ({ onSelectDemoIncident
           variant="primary"
           size="sm"
           onClick={() => setIsOpen(true)}
-          className="whitespace-nowrap shadow-[0_0_15px_rgba(6,182,212,0.4)]"
+          className="whitespace-nowrap cursor-pointer"
         >
           <Play className="w-3.5 h-3.5 fill-current mr-1.5" />
-          Run Interactive Demo
+          Launch Scenario
         </Button>
-      </div>
+      </section>
 
       {/* Guided Walkthrough Modal */}
       {isOpen && (
-        <div className="fixed inset-0 z-[3000] flex items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
-          <div className="bg-[#111827] border border-cyan-500/40 rounded-2xl max-w-xl w-full p-6 shadow-2xl relative">
+        <div 
+          className="fixed inset-0 z-[3000] flex items-center justify-center bg-slate-950/60 dark:bg-black/75 backdrop-blur-xs p-3 sm:p-4 overflow-y-auto"
+          onClick={() => setIsOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="demo-workflow-title"
+        >
+          <div 
+            className="bg-white dark:bg-[#0d1320] border border-slate-200 dark:border-[#1e293b] rounded-xl max-w-lg w-full p-4 sm:p-5 shadow-2xl relative text-slate-800 dark:text-slate-100 transition-colors duration-150 flex flex-col max-h-[88vh] my-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-slate-100 transition p-1"
+              className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-[#131b2e] cursor-pointer"
+              aria-label="Close modal"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
 
-            <div className="flex items-center gap-2.5 mb-1 text-cyan-400 font-bold text-sm">
-              <Sparkles className="w-4 h-4" />
-              <span>GUIDED DEMO SCENARIO</span>
+            {/* Modal Header */}
+            <div className="pr-8">
+              <div className="flex items-center gap-1.5 mb-1 text-sky-700 dark:text-sky-400 font-mono text-[11px] font-semibold uppercase tracking-wider">
+                <Play className="w-3 h-3 fill-current" />
+                <span>Operational Scenario OS-2026-041</span>
+              </div>
+              <h3 id="demo-workflow-title" className="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-snug">
+                Arabian Sea Tanker Spill Investigation
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 mb-3 leading-relaxed">
+                Step through the exact procedural workflow executed by Coast Guard environmental response units.
+              </p>
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">
-              Investigating Arabian Sea Spill #OS-2026-041
-            </h3>
-            <p className="text-xs text-slate-400 mb-6">
-              Step through the exact operational workflow used by Coast Guard environmental response units.
-            </p>
 
-            {/* Stepper Timeline */}
-            <div className="space-y-4 mb-6">
+            {/* Stepper Timeline - Scrollable area */}
+            <div className="overflow-y-auto pr-1 -mr-1 space-y-2.5 my-1 max-h-[50vh]">
               {steps.map((step, idx) => {
                 const isActive = currentStep === idx;
                 const isPast = currentStep > idx;
@@ -121,46 +154,61 @@ export const DemoWorkflow: React.FC<DemoWorkflowProps> = ({ onSelectDemoIncident
                 return (
                   <div
                     key={idx}
-                    className={`p-3.5 rounded-xl border transition-all ${
+                    className={`p-3 rounded-lg border transition-all duration-150 ${
                       isActive
-                        ? 'bg-cyan-950/30 border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.15)]'
+                        ? 'bg-sky-50/90 dark:bg-[#131b2e] border-sky-300 dark:border-sky-600/70 shadow-xs'
                         : isPast
-                        ? 'bg-slate-900/50 border-slate-800 opacity-80'
-                        : 'bg-slate-900/20 border-slate-850 opacity-50'
+                        ? 'bg-emerald-50/40 dark:bg-[#0a121d] border-emerald-200/70 dark:border-emerald-950/60'
+                        : 'bg-slate-50/60 dark:bg-[#080c14]/50 border-slate-200 dark:border-[#1e293b]/60 opacity-80'
                     }`}
                   >
-                    <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center justify-between gap-2 mb-1">
                       <div className="flex items-center gap-2">
                         {isPast ? (
-                          <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
                         ) : (
                           <span
-                            className={`w-4 h-4 rounded-full text-[10px] font-mono flex items-center justify-center font-bold ${
-                              isActive ? 'bg-cyan-500 text-slate-950' : 'bg-slate-800 text-slate-400'
+                            className={`w-4 h-4 rounded text-[10px] font-mono flex items-center justify-center font-bold flex-shrink-0 ${
+                              isActive 
+                                ? 'bg-sky-600 text-white' 
+                                : 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
                             }`}
                           >
                             {idx + 1}
                           </span>
                         )}
-                        <h4 className={`text-sm font-semibold ${isActive ? 'text-cyan-300' : 'text-slate-200'}`}>
+                        <h4 className={`text-xs sm:text-sm font-semibold ${
+                          isActive 
+                            ? 'text-sky-900 dark:text-sky-300' 
+                            : isPast 
+                            ? 'text-slate-800 dark:text-slate-200' 
+                            : 'text-slate-700 dark:text-slate-300'
+                        }`}>
                           {step.title}
                         </h4>
                       </div>
                       {isActive && (
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-cyan-400 px-1.5 py-0.5 rounded bg-cyan-950 border border-cyan-800">
-                          Current Step
+                        <span className="text-[9px] sm:text-[10px] font-mono font-medium uppercase tracking-wider text-sky-700 dark:text-sky-300 px-1.5 py-0.5 rounded bg-sky-100 dark:bg-[#101726] border border-sky-300 dark:border-sky-800/70 flex-shrink-0">
+                          Active Phase
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-slate-400 pl-6 leading-relaxed mb-3">
+                    <p className={`text-xs pl-6 leading-relaxed mb-2.5 ${
+                      isActive 
+                        ? 'text-slate-700 dark:text-slate-300' 
+                        : 'text-slate-600 dark:text-slate-400'
+                    }`}>
                       {step.desc}
                     </p>
                     {isActive && (
-                      <div className="pl-6">
+                      <div className="pl-6 pt-0.5">
                         <Button
                           variant="primary"
                           size="sm"
-                          onClick={step.action}
+                          onClick={() => {
+                            setIsOpen(false);
+                            step.action();
+                          }}
                           className="text-xs font-semibold"
                         >
                           <span>{step.actionLabel}</span>
@@ -173,7 +221,8 @@ export const DemoWorkflow: React.FC<DemoWorkflowProps> = ({ onSelectDemoIncident
               })}
             </div>
 
-            <div className="flex items-center justify-between pt-4 border-t border-slate-800 text-xs text-slate-400">
+            {/* Modal Footer */}
+            <div className="flex items-center justify-between pt-3 mt-2 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 font-mono">
               <span>Step {currentStep + 1} of {steps.length}</span>
               <div className="flex gap-2">
                 {currentStep > 0 && (

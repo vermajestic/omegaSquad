@@ -32,7 +32,7 @@ export const DashboardLayout: React.FC = () => {
   const { title, subtitle } = getPageTitle();
 
   return (
-    <div className={`flex h-screen bg-[#0a0f1e] text-slate-100 overflow-hidden font-sans transition-all ${
+    <div className={`flex h-screen bg-slate-100 dark:bg-[#080c14] text-slate-800 dark:text-slate-100 overflow-hidden font-sans transition-colors duration-150 ${
       isPresentationMode ? 'presentation-mode' : ''
     }`}>
       <div className="hidden lg:flex">
@@ -57,16 +57,16 @@ export const DashboardLayout: React.FC = () => {
           showMenuButton={true}
         />
         
-        <main className="flex-1 overflow-auto p-4 lg:p-6 bg-[#0a0f1e]">
+        <main className="flex-1 overflow-auto p-4 lg:p-6 bg-slate-100/70 dark:bg-[#080c14]">
           <Outlet />
         </main>
 
         {/* Floating Exit Presentation Mode Pill */}
         {isPresentationMode && (
-          <div className="fixed bottom-4 right-4 z-[4000] animate-bounce">
+          <div className="fixed bottom-4 right-4 z-[4000]">
             <button
               onClick={togglePresentationMode}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-2xl transition"
+              className="flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md transition-colors duration-150 border border-amber-400"
             >
               <Tv className="w-3.5 h-3.5" />
               <span>Exit Projector Mode</span>

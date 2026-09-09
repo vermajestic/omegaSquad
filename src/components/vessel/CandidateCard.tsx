@@ -30,58 +30,58 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
       onClick={() => onSelect && onSelect(candidate)}
       className={`rounded-xl p-4 transition-all border cursor-pointer ${
         isSelected
-          ? 'bg-cyan-950/40 border-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.25)]'
+          ? 'bg-cyan-50 dark:bg-cyan-950/40 border-cyan-500 shadow-sm dark:shadow-[0_0_15px_rgba(6,182,212,0.25)]'
           : isTop
-          ? 'bg-[#111827] border-cyan-500/40 hover:border-cyan-500/70'
-          : 'bg-[#111827] border-slate-800 hover:border-slate-700'
+          ? 'bg-white dark:bg-[#111827] border-cyan-500/50 dark:border-cyan-500/40 hover:border-cyan-500/70 shadow-xs'
+          : 'bg-white dark:bg-[#111827] border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 shadow-xs'
       }`}
     >
       <div className="flex items-start justify-between gap-2 mb-2">
         <div className="flex items-center gap-2">
           <div
             className={`w-6 h-6 rounded-full flex items-center justify-center font-mono text-xs font-bold ${
-              isTop ? 'bg-cyan-500 text-slate-950' : 'bg-slate-800 text-slate-400'
+              isTop ? 'bg-cyan-600 text-white dark:bg-cyan-500 dark:text-slate-950' : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-400'
             }`}
           >
             #{rank}
           </div>
           <div>
-            <h4 className="text-sm font-bold text-slate-100 flex items-center gap-1.5">
+            <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
               <span>{name}</span>
               {isTop && (
-                <span className="text-[10px] px-1.5 py-0.2 rounded bg-red-950 text-red-400 border border-red-800 font-semibold uppercase">
+                <span className="text-[10px] px-1.5 py-0.2 rounded bg-red-50 text-red-700 border border-red-200 dark:bg-red-950 dark:text-red-400 dark:border-red-800 font-semibold uppercase">
                   Primary Suspect
                 </span>
               )}
             </h4>
-            <div className="text-[11px] text-slate-400 font-mono">
+            <div className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
               IMO: {imo} • {type}
             </div>
           </div>
         </div>
 
         <div className="text-right">
-          <span className="text-[10px] uppercase font-bold text-slate-500">Score</span>
-          <div className="text-base font-bold font-mono text-cyan-400">
+          <span className="text-[10px] uppercase font-bold text-slate-400 dark:text-slate-500">Score</span>
+          <div className="text-base font-bold font-mono text-cyan-700 dark:text-cyan-400">
             {formatConfidence(score)}
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 text-xs py-2 my-2 border-y border-slate-800/80 text-slate-300">
+      <div className="grid grid-cols-2 gap-2 text-xs py-2 my-2 border-y border-slate-100 dark:border-slate-800/80 text-slate-700 dark:text-slate-300">
         <div>
-          <span className="text-slate-500">Proximity: </span>
-          <span className="font-mono text-amber-400 font-semibold">{formatDistance(dist)}</span>
+          <span className="text-slate-400 dark:text-slate-500">Proximity: </span>
+          <span className="font-mono text-amber-700 dark:text-amber-400 font-semibold">{formatDistance(dist)}</span>
         </div>
         <div>
-          <span className="text-slate-500">Offset: </span>
+          <span className="text-slate-400 dark:text-slate-500">Offset: </span>
           <span className="font-mono">{candidate.timeOffset || candidate.timeDifference || 'N/A'}</span>
         </div>
       </div>
 
       <div className="flex items-center justify-between pt-1">
-        <span className="text-[11px] text-slate-400 font-mono">
-          Track Match: <strong className="text-slate-200">{candidate.trackMatchScore ?? candidate.trackMatch ?? 0}%</strong>
+        <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+          Track Match: <strong className="text-slate-900 dark:text-slate-200">{candidate.trackMatchScore ?? candidate.trackMatch ?? 0}%</strong>
         </span>
 
         {onInspectAttribution && (
@@ -90,7 +90,7 @@ export const CandidateCard: React.FC<CandidateCardProps> = ({
               e.stopPropagation();
               onInspectAttribution(candidate);
             }}
-            className="text-xs text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-1"
+            className="text-xs text-cyan-700 dark:text-cyan-400 hover:text-cyan-600 dark:hover:text-cyan-300 font-semibold flex items-center gap-1"
           >
             <span>Breakdown</span>
             <ArrowRight className="w-3.5 h-3.5" />

@@ -47,28 +47,28 @@ export const AnalysisIndicators: React.FC<AnalysisIndicatorsProps> = ({
   const getSeverityBadge = (sev?: string) => {
     switch (sev) {
       case 'high':
-        return 'bg-cyan-950 text-cyan-400 border-cyan-800';
+        return 'bg-cyan-50 text-cyan-800 border-cyan-200 dark:bg-cyan-950 dark:text-cyan-400 dark:border-cyan-800';
       case 'medium':
-        return 'bg-blue-950 text-blue-400 border-blue-800';
+        return 'bg-blue-50 text-blue-800 border-blue-200 dark:bg-blue-950 dark:text-blue-400 dark:border-blue-800';
       case 'low':
-        return 'bg-slate-800 text-slate-400 border-slate-700';
+        return 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700';
       default:
-        return 'bg-slate-800 text-slate-400 border-slate-700';
+        return 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700';
     }
   };
 
   return (
-    <div className={`rounded-xl bg-[#111827] border border-slate-800 p-5 shadow-xl ${className}`}>
-      <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+    <div className={`rounded-xl bg-white dark:bg-[#0d1320] border border-slate-200 dark:border-[#1e293b] p-5 shadow-xs dark:shadow-xl transition-colors ${className}`}>
+      <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800 mb-4">
         <div>
-          <h4 className="text-sm font-bold text-slate-200 uppercase tracking-wider">
+          <h4 className="text-sm font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider">
             Multi-Criteria Radar Verification
           </h4>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-slate-500 dark:text-slate-400">
             Deep neural network feature extraction weights
           </p>
         </div>
-        <span className="text-[11px] font-mono text-cyan-400 bg-cyan-950/60 border border-cyan-800/60 px-2 py-0.5 rounded">
+        <span className="text-[11px] font-mono text-cyan-700 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-950/60 border border-cyan-200 dark:border-cyan-800/60 px-2 py-0.5 rounded">
           Model: UNet-SAR-v3
         </span>
       </div>
@@ -80,22 +80,22 @@ export const AnalysisIndicators: React.FC<AnalysisIndicatorsProps> = ({
             <div key={idx} className="space-y-1.5">
               <div className="flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold text-slate-200">{ind.name}</span>
+                  <span className="font-semibold text-slate-800 dark:text-slate-200">{ind.name}</span>
                   <span
-                    className={`text-[10px] px-1.5 py-0.2 rounded border font-mono uppercase font-semibold ${getSeverityBadge(
+                    className={`text-[10px] px-1.5 py-0.5 rounded border font-mono uppercase font-semibold ${getSeverityBadge(
                       ind.severity
                     )}`}
                   >
                     {ind.severity || 'high'}
                   </span>
                 </div>
-                <span className="font-mono font-bold text-cyan-400">{score}%</span>
+                <span className="font-mono font-bold text-cyan-600 dark:text-cyan-400">{score}%</span>
               </div>
 
               <ProgressBar value={score} showValue={false} height="sm" />
 
               {ind.description && (
-                <p className="text-[11px] text-slate-400 leading-snug">
+                <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-snug">
                   {ind.description}
                 </p>
               )}

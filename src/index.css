@@ -1,88 +1,135 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  --color-navy-950: #0a0f1e;
-  --color-navy-900: #111827;
-  --color-navy-800: #1a2332;
+  --color-navy-950: #080c14;
+  --color-navy-900: #0d1320;
+  --color-navy-800: #131b2e;
   --color-navy-700: #1e293b;
-  --color-navy-600: #273548;
-  --color-navy-500: #334155;
+  --color-navy-600: #2a374d;
+  --color-navy-500: #3b4d6b;
   --color-slate-400: #94a3b8;
   --color-slate-300: #cbd5e1;
   --color-slate-200: #e2e8f0;
-  --color-slate-100: #f1f5f9;
-  --color-cyan-400: #22d3ee;
-  --color-cyan-500: #06b6d4;
-  --color-cyan-600: #0891b2;
-  --color-blue-400: #60a5fa;
-  --color-blue-500: #3b82f6;
+  --color-slate-100: #f8fafc;
+  --color-cyan-400: #0ea5e9;
+  --color-cyan-500: #0284c7;
+  --color-cyan-600: #0369a1;
+  --color-blue-400: #38bdf8;
+  --color-blue-500: #0284c7;
   --color-amber-400: #fbbf24;
   --color-amber-500: #f59e0b;
-  --color-red-400: #f87171;
-  --color-red-500: #ef4444;
+  --color-red-400: #fb7185;
+  --color-red-500: #f43f5e;
   --color-emerald-400: #34d399;
   --color-emerald-500: #10b981;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
 }
 
-/* Leaflet overrides for dark theme */
+/* Leaflet tactical theme */
 .leaflet-container {
-  background: #0a0f1e;
-  font-family: "Inter", sans-serif;
+  background: #080c14;
+  font-family: var(--font-sans);
+}
+
+.dark .leaflet-container {
+  background: #080c14;
+}
+
+.light .leaflet-container {
+  background: #f1f5f9;
 }
 
 .leaflet-control-zoom a {
-  background-color: #1a2332 !important;
-  color: #f1f5f9 !important;
+  background-color: #0d1320 !important;
+  color: #f8fafc !important;
   border-color: #1e293b !important;
+  transition: background-color 150ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.light .leaflet-control-zoom a {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
 }
 
 .leaflet-control-zoom a:hover {
-  background-color: #273548 !important;
+  background-color: #1e293b !important;
+}
+
+.light .leaflet-control-zoom a:hover {
+  background-color: #f1f5f9 !important;
 }
 
 .leaflet-control-attribution {
-  background-color: rgba(26, 35, 50, 0.8) !important;
+  background-color: rgba(13, 19, 32, 0.9) !important;
   color: #94a3b8 !important;
   font-size: 10px !important;
 }
 
-.leaflet-control-attribution a {
-  color: #06b6d4 !important;
+.light .leaflet-control-attribution {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  color: #64748b !important;
 }
 
-/* Pulse animation for map markers */
-@keyframes pulse-ring {
-  0% { transform: scale(0.8); opacity: 1; }
-  100% { transform: scale(2); opacity: 0; }
+.leaflet-control-attribution a {
+  color: #38bdf8 !important;
+}
+
+.light .leaflet-control-attribution a {
+  color: #0284c7 !important;
+}
+
+/* Tactical marker pulse - subtle and non-distracting */
+@keyframes tactical-ping {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  70% { transform: scale(1.6); opacity: 0; }
+  100% { transform: scale(1.6); opacity: 0; }
 }
 
 .marker-pulse {
-  animation: pulse-ring 2s ease-out infinite;
+  animation: tactical-ping 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
 }
 
 /* Scrollbar styling */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #111827;
+  background: #080c14;
+}
+
+.light ::-webkit-scrollbar-track {
+  background: #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 3px;
+  background: #1e293b;
+  border-radius: 2px;
+}
+
+.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #2a374d;
 }
 
-/* Smooth transitions */
-* {
-  scroll-behavior: smooth;
+.light ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Fast weighted transitions (under 150ms) */
+button, a, input, select {
+  transition-property: color, background-color, border-color, opacity, box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Presentation Mode adjustments for large auditorium screens / projectors */
